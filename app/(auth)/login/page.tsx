@@ -1,58 +1,30 @@
 'use client'
 
-import { useValidation } from '@/hooks/useValidation'
-import { login } from '@/redux/slices/authSlice'
-import { loginService } from '@/services/authService'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import Layout from '@/components/layout/index'
+import { useAuthForm } from '@/hooks/useAuthForm'
+import { useFormField } from '@/hooks/useFormField'
 import styles from '~/styles/Auth.module.css'
 
 const Login = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [isFormValid, setIsFormValid] = useState(false)
-  const [submissionError, setSubmissionError] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const emailField = useFormField('')
+  const passwordField = useFormField('')
 
-  const [emailTouched, setEmailTouched] = useState(false)
-  const [passwordTouched, setPasswordTouched] = useState(false)
+  const formValues = {
+    email: emailField.value,
+    password: passwordField.value,
+  }
 
-  const dispatch = useDispatch()
-  const router = useRouter()
+  const {
+    isFormValid,
+    isSubmitting,
+    submissionError,
+    handleSubmit,
+    emailError,
+    passwordError,
+  } = useAuthForm('login', formValues)
 
-  const { validateForm, emailError, passwordError } = useValidation(
-    email,
-    password,
-  )
-
-  useEffect(() => {
-    if (emailTouched || passwordTouched) {
-      setIsFormValid(validateForm())
-    }
-  }, [email, password, validateForm, emailTouched, passwordTouched])
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    if (!isFormValid) return
-
-    setIsSubmitting(true)
-    setSubmissionError('')
-
-    try {
-      await loginService(email, password)
-      dispatch(login())
-      router.push('/dashboard')
-    } catch (error) {
-      if (error instanceof Error) {
-        setSubmissionError(error.message)
-      } else {
-        setSubmissionError('Неизвестная ошибка.')
-      }
-    } finally {
-      setIsSubmitting(false)
-    }
+  const handleFormSubmit = (e: React.FormEvent) => {
+    handleSubmit(e)
   }
 
   return (
@@ -61,44 +33,34 @@ const Login = () => {
         <h1 className={styles.title}>Вход</h1>
         <p className={styles.subtitle}>Войдите в свой аккаунт</p>
       </div>
-      <form className={styles.form} onSubmit={handleSubmit} autoComplete="on">
-        <div className={styles.field}>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="example@example.ru"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value)
-              setEmailTouched(true)
-            }}
-            required
-            autoComplete="email"
-            onBlur={() => setEmailTouched(true)}
-          />
-          {emailTouched && emailError && (
-            <span className={styles.error}>{emailError}</span>
-          )}
-        </div>
-        <div className={styles.field}>
-          <label htmlFor="password">Пароль</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value)
-              setPasswordTouched(true)
-            }}
-            required
-            autoComplete="current-password"
-            onBlur={() => setPasswordTouched(true)}
-          />
-          {passwordTouched && passwordError && (
-            <span className={styles.error}>{passwordError}</span>
-          )}
-        </div>
+      <form
+        className={styles.form}
+        onSubmit={handleFormSubmit}
+        autoComplete="on"
+      >
+        <Layout.InputField
+          id="email"
+          label="Email"
+          type="email"
+          placeholder="example@example.ru"
+          value={emailField.value}
+          error={emailError}
+          touched={emailField.touched}
+          onChange={emailField.handleChange}
+          onBlur={emailField.handleBlur}
+          autoComplete="email"
+        />
+        <Layout.InputField
+          id="password"
+          label="Пароль"
+          type="password"
+          value={passwordField.value}
+          error={passwordError}
+          touched={passwordField.touched}
+          onChange={passwordField.handleChange}
+          onBlur={passwordField.handleBlur}
+          autoComplete="current-password"
+        />
         {submissionError && (
           <div className={styles.error}>{submissionError}</div>
         )}

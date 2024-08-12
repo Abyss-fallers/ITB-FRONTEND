@@ -1,83 +1,38 @@
 'use client'
 
-import { useValidation } from '@/hooks/useValidation'
-import { registerService } from '@/services/authService'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import Layout from '@/components/layout/index'
+import { useAuthForm } from '@/hooks/useAuthForm'
+import { useFormField } from '@/hooks/useFormField'
+import React from 'react'
 import styles from '~/styles/Auth.module.css'
 
 const Register = () => {
-  const [fullName, setFullName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [isFormValid, setIsFormValid] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submissionError, setSubmissionError] = useState('')
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const fullNameField = useFormField('')
+  const emailField = useFormField('')
+  const passwordField = useFormField('')
+  const confirmPasswordField = useFormField('')
 
-  const [fullNameTouched, setFullNameTouched] = useState(false)
-  const [emailTouched, setEmailTouched] = useState(false)
-  const [passwordTouched, setPasswordTouched] = useState(false)
-  const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false)
-
-  const router = useRouter()
+  const formValues = {
+    fullName: fullNameField.value,
+    email: emailField.value,
+    password: passwordField.value,
+    confirmPassword: confirmPasswordField.value,
+  }
 
   const {
-    validateForm,
+    isFormValid,
+    isSubmitting,
+    submissionError,
+    handleSubmit,
     emailError,
     passwordError,
     fullNameError,
     confirmPasswordError,
-  } = useValidation(email, password, fullName, confirmPassword)
+  } = useAuthForm('register', formValues)
 
-  useEffect(() => {
-    if (
-      fullNameTouched ||
-      emailTouched ||
-      passwordTouched ||
-      confirmPasswordTouched
-    ) {
-      setIsFormValid(validateForm())
-    }
-  }, [
-    fullName,
-    email,
-    password,
-    confirmPassword,
-    validateForm,
-    fullNameTouched,
-    emailTouched,
-    passwordTouched,
-    confirmPasswordTouched,
-  ])
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!isFormValid) return
-
-    setIsSubmitting(true)
-    setSubmissionError('')
-
-    try {
-      await registerService(fullName, email, password)
-      setIsSubmitted(true)
-    } catch (error) {
-      if (error instanceof Error) {
-        setSubmissionError(error.message)
-      } else {
-        setSubmissionError('Неизвестная ошибка.')
-      }
-    } finally {
-      setIsSubmitting(false)
-    }
+  const handleFormSubmit = (e: React.FormEvent) => {
+    handleSubmit(e)
   }
-
-  useEffect(() => {
-    if (isSubmitted) {
-      router.push('/dashboard')
-    }
-  }, [isSubmitted, router])
 
   return (
     <div className={styles.container}>
@@ -85,85 +40,58 @@ const Register = () => {
         <h1 className={styles.title}>Регистрация</h1>
         <p className={styles.subtitle}>Создайте аккаунт</p>
       </div>
-      <form className={styles.form} onSubmit={handleSubmit} autoComplete="on">
-        <div className={styles.field}>
-          <label htmlFor="full-name">Полное имя</label>
-          <input
-            id="full-name"
-            placeholder="Иван Иванов"
-            value={fullName}
-            onChange={(e) => {
-              setFullName(e.target.value)
-              setFullNameTouched(true)
-            }}
-            onBlur={() => setFullNameTouched(true)}
-            required
-            autoComplete="name"
-          />
-          {fullNameTouched && fullNameError && (
-            <span className={styles.error}>{fullNameError}</span>
-          )}
-        </div>
-        <div className={styles.field}>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="example@example.ru"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value)
-              setEmailTouched(true)
-            }}
-            onBlur={() => setEmailTouched(true)}
-            required
-            autoComplete="email"
-          />
-          {emailTouched && emailError && (
-            <span className={styles.error}>{emailError}</span>
-          )}
-        </div>
-        <div className={styles.field}>
-          <label htmlFor="password">Пароль</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value)
-              setPasswordTouched(true)
-            }}
-            onBlur={() => setPasswordTouched(true)}
-            required
-            autoComplete="new-password"
-          />
-          {passwordTouched && passwordError && (
-            <span className={styles.error}>{passwordError}</span>
-          )}
-        </div>
-        <div className={styles.field}>
-          <label htmlFor="confirm-password">Подтвердите пароль</label>
-          <input
-            id="confirm-password"
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => {
-              setConfirmPassword(e.target.value)
-              setConfirmPasswordTouched(true)
-            }}
-            onBlur={() => setConfirmPasswordTouched(true)}
-            required
-            autoComplete="new-password"
-          />
-          {confirmPasswordTouched && confirmPasswordError && (
-            <span className={styles.error}>{confirmPasswordError}</span>
-          )}
-        </div>
+      <form
+        className={styles.form}
+        onSubmit={handleFormSubmit}
+        autoComplete="on"
+      >
+        <Layout.InputField
+          id="full-name"
+          label="Полное имя"
+          placeholder="Иван Иванов"
+          value={fullNameField.value}
+          error={fullNameError}
+          touched={fullNameField.touched}
+          onChange={fullNameField.handleChange}
+          onBlur={fullNameField.handleBlur}
+          autoComplete="name"
+        />
+        <Layout.InputField
+          id="email"
+          label="Email"
+          type="email"
+          placeholder="example@example.ru"
+          value={emailField.value}
+          error={emailError}
+          touched={emailField.touched}
+          onChange={emailField.handleChange}
+          onBlur={emailField.handleBlur}
+          autoComplete="email"
+        />
+        <Layout.InputField
+          id="password"
+          label="Пароль"
+          type="password"
+          value={passwordField.value}
+          error={passwordError}
+          touched={passwordField.touched}
+          onChange={passwordField.handleChange}
+          onBlur={passwordField.handleBlur}
+          autoComplete="new-password"
+        />
+        <Layout.InputField
+          id="confirm-password"
+          label="Подтвердите пароль"
+          type="password"
+          value={confirmPasswordField.value}
+          error={confirmPasswordError}
+          touched={confirmPasswordField.touched}
+          onChange={confirmPasswordField.handleChange}
+          onBlur={confirmPasswordField.handleBlur}
+          autoComplete="new-password"
+        />
         {submissionError && (
           <div className={styles.error}>{submissionError}</div>
-        )}
-        {isSubmitted && (
-          <div className={styles.success}>Регистрация успешна!</div>
         )}
         <button
           type="submit"

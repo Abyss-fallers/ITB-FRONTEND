@@ -1,49 +1,24 @@
 import config from '@/config'
 import Cookies from 'js-cookie'
 
-export const loginService = async (email: string, password: string) => {
-  const response = await fetch(`${config.apiUrl}/auth/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password }),
-  })
+export type AuthType = 'login' | 'register'
 
-  if (!response.ok) {
-    const errorData = await response.json()
-    throw new Error(errorData.message || 'Не получилось. Попробуй ещё раз :(')
-  }
-
-  const data = await response.json()
-  Cookies.set('token', data.token, {
-    expires: 7,
-    secure: true,
-    sameSite: 'strict',
-  })
-
-  return data
-}
-
-export const registerService = async (
-  fullName: string,
-  email: string,
-  password: string,
+export const authService = async (
+  authType: AuthType,
+  values: Record<string, string>,
 ) => {
-  const response = await fetch(`${config.apiUrl}/auth/register`, {
+  const endpoint = authType === 'login' ? 'login' : 'register'
+  const response = await fetch(`${config.apiUrl}/auth/${endpoint}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ fullName, email, password }),
+    body: JSON.stringify(values),
   })
 
   if (!response.ok) {
     const errorData = await response.json()
-    throw new Error(
-      errorData.message ||
-        'Не получилось зарегистрироваться. Попробуйте снова.',
-    )
+    throw new Error(errorData.message || 'Произошла ошибка. Попробуйте снова.')
   }
 
   const data = await response.json()
