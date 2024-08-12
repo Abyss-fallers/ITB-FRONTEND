@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Test and Build",
+      "type": "shell",
+      "command": "npm run test && npm run build",
+      "group": {
+        "kind": "build"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Lint and Format",
+      "type": "shell",
+      "command": "npm run format && npm run lint && npm run lint:css",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Clean Cache",
+      "type": "shell",
+      "command": "npm cache clean --force",
+      "group": {
+        "kind": "none"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

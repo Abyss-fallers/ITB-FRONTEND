@@ -1,0 +1,18 @@
+/node_modules
+
+# next.js
+/.next/
+
+# production
+/build
+
+# misc
+.DS_Store
+package-lock.json
+
+# local env files
+.env.development
+.env.production
+
+# typescript
+next-env.d.ts

@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "EditorConfig.EditorConfig",
+    "DavidAnson.vscode-markdownlint",
+    "eamodio.gitlens",
+    "Gruntfuggly.todo-tree"
+  ]
+}

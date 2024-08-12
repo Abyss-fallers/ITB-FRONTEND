@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+Host: itbrz.com
+Sitemap: http://itbrz.com/sitemap.xml
