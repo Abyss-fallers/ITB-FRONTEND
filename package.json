@@ -12,7 +12,8 @@
     "preview": "vite preview",
     "format": "prettier --write .",
     "test": "jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "generate-sitemap": "node tools/generate-sitemap.js"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -31,7 +32,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-redux": "^9.1.2",
-    "redux": "^5.0.1"
+    "redux": "^5.0.1",
+    "sitemap": "^8.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
@@ -51,6 +53,7 @@
     "stylelint-config-standard": "^36.0.0",
     "tailwindcss": "^3.4.1",
     "ts-jest": "^29.2.4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

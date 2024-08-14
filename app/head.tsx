@@ -9,13 +9,15 @@ const seo = {
   category:
     'Freelance, IT, Technology, Software Development, Web Development, UX/UI Design, IT Services, Remote Work, IT Jobs',
   robots: 'index, follow',
-  canonical: 'https://it-birjha.ru/',
+  canonical: 'https://itbrz.ru',
+  ogImage: '/og-image.png',
+  themeColor: '#007bff',
+  language: 'ru',
 }
 
 export const RootHead = () => (
   <>
     <title>{seo.title}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={seo.description} />
     <meta name="keywords" content={seo.keywords} />
     <meta name="author" content={seo.author} />
@@ -23,15 +25,31 @@ export const RootHead = () => (
     <meta name="category" content={seo.category} />
     <meta name="robots" content={seo.robots} />
     <link rel="canonical" href={seo.canonical} />
-    {/* Twitter Card Meta Tags */}
+
+    <meta property="og:site_name" content="ITB" />
+    <meta property="og:title" content={seo.title} />
+    <meta property="og:description" content={seo.description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={seo.canonical} />
+    <meta property="og:image" content={seo.ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={seo.language} />
+
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={seo.title} />
     <meta name="twitter:description" content={seo.description} />
-    <meta name="twitter:image" content="/twitter-card-image.png" />
-    {/* FAVICONS */}
+    <meta name="twitter:image" content={seo.ogImage} />
+    <meta name="theme-color" content={seo.themeColor} />
+    <meta httpEquiv="Content-Language" content={seo.language} />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-icon.png" />
+
+    <meta httpEquiv="Content-Security-Policy" content="default-src 'self';" />
+    <meta name="rating" content="general" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="format-detection" content="telephone=no" />
   </>
 )
 

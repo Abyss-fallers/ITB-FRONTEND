@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
-Host: itbrz.com
-Sitemap: http://itbrz.com/sitemap.xml
+Host: itbrz.ru
+Sitemap: http://itbrz.ru/sitemap.xml
