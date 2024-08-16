@@ -1,25 +1,8 @@
 .header {
-  display: -webkit-box;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
+  justify-content: space-between;
   align-items: center;
-  height: 5em;
-  padding: 15px;
-}
-
-.header__logo {
-  width: 100px;
-  height: 100%;
-  background-color: tomato;
-  margin-right: auto;
-}
-
-.header__buttons {
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-  gap: 30px;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
 }

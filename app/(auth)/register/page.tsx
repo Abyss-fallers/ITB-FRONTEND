@@ -3,7 +3,6 @@
 import Layout from '@/components/layout/index'
 import { useAuthForm } from '@/hooks/useAuthForm'
 import { useFormField } from '@/hooks/useFormField'
-import React from 'react'
 import styles from '~/styles/Auth.module.css'
 
 const Register = () => {

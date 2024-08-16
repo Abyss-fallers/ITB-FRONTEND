@@ -10,7 +10,7 @@ const seo = {
     'Freelance, IT, Technology, Software Development, Web Development, UX/UI Design, IT Services, Remote Work, IT Jobs',
   robots: 'index, follow',
   canonical: 'https://itbrz.ru',
-  ogImage: '/og-image.png',
+  ogImage: '/opengraph-image.png',
   themeColor: '#007bff',
   language: 'ru',
 }
@@ -46,7 +46,7 @@ export const RootHead = () => (
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-icon.png" />
 
-    <meta httpEquiv="Content-Security-Policy" content="default-src 'self';" />
+    {/* <meta httpEquiv="Content-Security-Policy" content="default-src 'self';" /> */}
     <meta name="rating" content="general" />
     <link rel="manifest" href="/manifest.json" />
     <meta name="format-detection" content="telephone=no" />

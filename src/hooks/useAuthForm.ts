@@ -1,9 +1,11 @@
 'use client'
 
 import { useValidation } from '@/hooks/useValidation'
+import { login } from '@/redux/slices/authSlice'
 import { authService, AuthType } from '@/services/authService'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 export const useAuthForm = (
   authType: AuthType,
@@ -14,7 +16,10 @@ export const useAuthForm = (
   const [submissionError, setSubmissionError] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
 
+  const dispatch = useDispatch()
   const router = useRouter()
+
+  const isRegistration = authType === 'register'
 
   const {
     validateForm,
@@ -23,15 +28,16 @@ export const useAuthForm = (
     fullNameError,
     confirmPasswordError,
   } = useValidation(
-    formValues.email || '',
-    formValues.password || '',
-    formValues.fullName || '',
-    formValues.confirmPassword || '',
+    formValues.email,
+    formValues.password,
+    formValues.fullName,
+    formValues.confirmPassword,
+    isRegistration,
   )
 
   useEffect(() => {
     setIsFormValid(validateForm())
-  }, [validateForm])
+  }, [validateForm]) // Используем validateForm как зависимость
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -42,7 +48,8 @@ export const useAuthForm = (
     setSubmissionError('')
 
     try {
-      await authService(authType, formValues)
+      const data = await authService(authType, formValues)
+      dispatch(login())
       setIsSubmitted(true)
       router.push('/dashboard')
     } catch (error) {

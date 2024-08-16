@@ -1,6 +1,6 @@
 'use client'
 
-import Layout from '@/components/layout/index'
+import Layout from '@/components/layout'
 import { useAuthForm } from '@/hooks/useAuthForm'
 import { useFormField } from '@/hooks/useFormField'
 import styles from '~/styles/Auth.module.css'
@@ -23,21 +23,13 @@ const Login = () => {
     passwordError,
   } = useAuthForm('login', formValues)
 
-  const handleFormSubmit = (e: React.FormEvent) => {
-    handleSubmit(e)
-  }
-
   return (
     <div className={styles.container}>
       <div>
         <h1 className={styles.title}>Вход</h1>
         <p className={styles.subtitle}>Войдите в свой аккаунт</p>
       </div>
-      <form
-        className={styles.form}
-        onSubmit={handleFormSubmit}
-        autoComplete="on"
-      >
+      <form className={styles.form} onSubmit={handleSubmit} autoComplete="on">
         <Layout.InputField
           id="email"
           label="Email"
