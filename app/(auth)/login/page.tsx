@@ -23,13 +23,22 @@ const Login = () => {
     passwordError,
   } = useAuthForm('login', formValues)
 
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    await handleSubmit(e)
+  }
+
   return (
     <div className={styles.container}>
       <div>
         <h1 className={styles.title}>Вход</h1>
         <p className={styles.subtitle}>Войдите в свой аккаунт</p>
       </div>
-      <form className={styles.form} onSubmit={handleSubmit} autoComplete="on">
+      <form
+        className={styles.form}
+        onSubmit={handleFormSubmit}
+        autoComplete="on"
+      >
         <Layout.InputField
           id="email"
           label="Email"

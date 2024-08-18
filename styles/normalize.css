@@ -9,6 +9,7 @@ body {
 
 main {
   display: block;
+  padding: 20px;
 }
 
 h1 {

@@ -37,7 +37,7 @@ export const useAuthForm = (
 
   useEffect(() => {
     setIsFormValid(validateForm())
-  }, [validateForm]) // Используем validateForm как зависимость
+  }, [validateForm])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

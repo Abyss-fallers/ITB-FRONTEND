@@ -22,7 +22,6 @@ export const authService = async (
   }
 
   const data = await response.json()
-  // Сохранение токена в cookie
   Cookies.set('token', data.token, {
     expires: 7,
     secure: true,

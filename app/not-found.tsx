@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import styles from '../styles/not-found.module.css'
+import styles from '~/styles/not-found.module.css'
 
 const NotFound = () => (
   <main className={styles.main}>

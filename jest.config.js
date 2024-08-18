@@ -5,7 +5,7 @@ const jestConfig = {
   transform: {
     '^.+\\.ts$': 'ts-jest',
   },
-  testMatch: ['<rootDir>/src/test/utils/validation.test.ts'],
+  testMatch: ['<rootDir>/src/test/**/*.test.ts'],
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/**/*.d.ts', '!src/test/**'],
   coverageReporters: ['text'],
 }
