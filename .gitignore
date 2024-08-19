@@ -16,3 +16,5 @@ package-lock.json
 
 # typescript
 next-env.d.ts
+
+*storybook.log

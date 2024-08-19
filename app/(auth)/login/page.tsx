@@ -1,6 +1,6 @@
 'use client'
 
-import Layout from '@/components/layout'
+import Components from '@/components/index'
 import { useAuthForm } from '@/hooks/useAuthForm'
 import { useFormField } from '@/hooks/useFormField'
 import styles from '~/styles/Auth.module.css'
@@ -39,7 +39,7 @@ const Login = () => {
         onSubmit={handleFormSubmit}
         autoComplete="on"
       >
-        <Layout.InputField
+        <Components.InputField
           id="email"
           label="Email"
           type="email"
@@ -51,7 +51,7 @@ const Login = () => {
           onBlur={emailField.handleBlur}
           autoComplete="email"
         />
-        <Layout.InputField
+        <Components.InputField
           id="password"
           label="Пароль"
           type="password"
