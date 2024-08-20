@@ -21,7 +21,7 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --no-error-on-unmatched-pattern --fix",
-      "./remove_comments",
+      "./tools/remove_comments",
       "prettier --write"
     ],
     "*.{html,css,md}": [
