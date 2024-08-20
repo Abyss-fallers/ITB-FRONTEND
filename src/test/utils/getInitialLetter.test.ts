@@ -1,4 +1,4 @@
-import { getInitialLetter } from '../../utils/getInitialLetter' // Убедитесь, что путь корректный
+import { getInitialLetter } from '../../utils/getInitialLetter'
 
 describe('getInitialLetter', () => {
   it('returns the first letter in uppercase for a full name', () => {
