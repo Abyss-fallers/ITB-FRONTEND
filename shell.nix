@@ -15,7 +15,7 @@ pkgs.mkShell {
     if [ ! -d node_modules ]; then
       echo "Installing npm dependencies..."
       npm install
-    fi
+    fi 
 
     # Автоматический запуск проекта в режиме разработки
     echo "Starting development server..."
