@@ -2,8 +2,8 @@ import Layout from '@/components/layout'
 import ClientProvider from './client-provider'
 import RootHead from './head'
 
-import '~/styles/index.css'
-import '~/styles/normalize.css'
+import '@/styles/vendor/index.css'
+import '@/styles/vendor/normalize.css'
 
 export default function RootLayout({
   children,

@@ -1,9 +1,9 @@
 'use client'
 
-import Components from '@/components/index'
+import Molecule from '@/components/molecules'
 import { useAuthForm } from '@/hooks/useAuthForm'
 import { useFormField } from '@/hooks/useFormField'
-import styles from '~/styles/Auth.module.css'
+import styles from '@/styles/(auth)/Auth.module.css'
 
 const Login = () => {
   const emailField = useFormField('')
@@ -39,7 +39,7 @@ const Login = () => {
         onSubmit={handleFormSubmit}
         autoComplete="on"
       >
-        <Components.InputField
+        <Molecule.InputField
           id="email"
           label="Email"
           type="email"
@@ -51,7 +51,7 @@ const Login = () => {
           onBlur={emailField.handleBlur}
           autoComplete="email"
         />
-        <Components.InputField
+        <Molecule.InputField
           id="password"
           label="Пароль"
           type="password"

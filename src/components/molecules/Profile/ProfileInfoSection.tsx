@@ -1,4 +1,4 @@
-import styles from '~/styles/profile/Profile.module.css'
+import styles from '@/styles/profile/Profile.module.css'
 
 export const ProfileInfoSection: React.FC = () => {
   return (

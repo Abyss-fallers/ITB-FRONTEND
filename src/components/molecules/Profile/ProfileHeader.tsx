@@ -1,5 +1,5 @@
+import styles from '@/styles/profile/Profile.module.css'
 import { getInitialLetter } from '@/utils/getInitialLetter'
-import styles from '~/styles/profile/Profile.module.css'
 
 interface ProfileHeaderProps {
   name: string

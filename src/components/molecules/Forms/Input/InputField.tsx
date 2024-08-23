@@ -1,4 +1,4 @@
-import styles from '~/styles/Auth.module.css'
+import styles from '@/styles/(auth)/Auth.module.css'
 
 interface InputFieldProps {
   id: string

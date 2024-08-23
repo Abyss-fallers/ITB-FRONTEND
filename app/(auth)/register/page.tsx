@@ -1,9 +1,9 @@
 'use client'
 
-import Components from '@/components/index'
+import Molecule from '@/components/molecules'
 import { useAuthForm } from '@/hooks/useAuthForm'
 import { useFormField } from '@/hooks/useFormField'
-import styles from '~/styles/Auth.module.css'
+import styles from '@/styles/(auth)/Auth.module.css'
 
 const Register = () => {
   const fullNameField = useFormField('')
@@ -44,7 +44,7 @@ const Register = () => {
         onSubmit={handleFormSubmit}
         autoComplete="on"
       >
-        <Components.InputField
+        <Molecule.InputField
           id="full-name"
           label="Полное имя"
           placeholder="Иван Иванов"
@@ -55,7 +55,7 @@ const Register = () => {
           onBlur={fullNameField.handleBlur}
           autoComplete="name"
         />
-        <Components.InputField
+        <Molecule.InputField
           id="email"
           label="Email"
           type="email"
@@ -67,7 +67,7 @@ const Register = () => {
           onBlur={emailField.handleBlur}
           autoComplete="email"
         />
-        <Components.InputField
+        <Molecule.InputField
           id="password"
           label="Пароль"
           type="password"
@@ -78,7 +78,7 @@ const Register = () => {
           onBlur={passwordField.handleBlur}
           autoComplete="new-password"
         />
-        <Components.InputField
+        <Molecule.InputField
           id="confirm-password"
           label="Подтвердите пароль"
           type="password"

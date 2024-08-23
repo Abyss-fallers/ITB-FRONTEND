@@ -1,15 +1,15 @@
-import { InputField } from './Input/InputField'
+import { InputField } from './Forms/Input/InputField'
 import {
   ProfileHeader,
   ProfileInfoSection,
   ProfileSegmentation,
 } from './Profile'
 
-const Components = {
+const Molecule = {
   InputField,
   ProfileHeader,
   ProfileInfoSection,
   ProfileSegmentation,
 }
 
-export default Components
+export default Molecule

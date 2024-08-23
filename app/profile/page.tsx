@@ -1,4 +1,4 @@
-import Profile from '@/components/layout/Profile/Profile'
+import Profile from '@/components/Templates/Profile/Profile'
 
 const App = () => {
   return <Profile name="Ваня КК" />
