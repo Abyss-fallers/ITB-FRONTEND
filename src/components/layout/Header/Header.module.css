@@ -1,5 +1,6 @@
 .header {
   display: flex;
+  height: 50px;
   justify-content: flex-end;
   align-items: center;
   padding: 10px 20px;
@@ -9,5 +10,5 @@
 
 .header__buttons {
   display: flex;
-  gap: 15px;
+  gap: 32px;
 }

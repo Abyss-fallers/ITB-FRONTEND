@@ -1,4 +1,4 @@
 User-agent: *
-Disallow:
+Disallow: /modules
 Host: itbrz.ru
 Sitemap: http://itbrz.ru/sitemap.xml

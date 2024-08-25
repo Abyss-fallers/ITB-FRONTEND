@@ -1,4 +1,3 @@
-import { InputField } from './Forms/Input/InputField'
 import {
   ProfileHeader,
   ProfileInfoSection,
@@ -6,7 +5,6 @@ import {
 } from './Profile'
 
 const Molecule = {
-  InputField,
   ProfileHeader,
   ProfileInfoSection,
   ProfileSegmentation,

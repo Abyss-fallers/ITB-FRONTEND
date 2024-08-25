@@ -1,6 +1,6 @@
 'use client'
 
-import Molecule from '@/components/molecules'
+import Atom from '@/components/atoms/index'
 import { useAuthForm } from '@/hooks/useAuthForm'
 import { useFormField } from '@/hooks/useFormField'
 import styles from '@/styles/(auth)/Auth.module.css'
@@ -44,7 +44,7 @@ const Register = () => {
         onSubmit={handleFormSubmit}
         autoComplete="on"
       >
-        <Molecule.InputField
+        <Atom.InputField
           id="full-name"
           label="Полное имя"
           placeholder="Иван Иванов"
@@ -55,7 +55,7 @@ const Register = () => {
           onBlur={fullNameField.handleBlur}
           autoComplete="name"
         />
-        <Molecule.InputField
+        <Atom.InputField
           id="email"
           label="Email"
           type="email"
@@ -67,7 +67,7 @@ const Register = () => {
           onBlur={emailField.handleBlur}
           autoComplete="email"
         />
-        <Molecule.InputField
+        <Atom.InputField
           id="password"
           label="Пароль"
           type="password"
@@ -78,7 +78,7 @@ const Register = () => {
           onBlur={passwordField.handleBlur}
           autoComplete="new-password"
         />
-        <Molecule.InputField
+        <Atom.InputField
           id="confirm-password"
           label="Подтвердите пароль"
           type="password"
@@ -92,13 +92,13 @@ const Register = () => {
         {submissionError && (
           <div className={styles.error}>{submissionError}</div>
         )}
-        <button
+        <Atom.Button
+          variant="primary"
           type="submit"
-          className={styles.button}
           disabled={!isFormValid || isSubmitting}
         >
-          {isSubmitting ? <div className={styles.loader}></div> : 'Регистрация'}
-        </button>
+          Регистрация
+        </Atom.Button>
       </form>
     </div>
   )

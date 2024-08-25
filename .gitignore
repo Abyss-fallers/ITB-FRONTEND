@@ -8,7 +8,9 @@
 
 # misc
 .DS_Store
+.vscode/settings.json
 package-lock.json
+test-results/
 
 # local env files
 .env.development

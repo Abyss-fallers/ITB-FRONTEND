@@ -1,5 +1,6 @@
 'use client'
 
+import Atom from '@/components/atoms'
 import { useState } from 'react'
 import { Certification, Education, Language, Skill } from './interfaces'
 import styles from './ProfileSegmentation.module.css'
@@ -40,22 +41,24 @@ export const ProfileSegmentation: React.FC = () => {
               value={description}
               onChange={updateDescription}
             />
-            <button
-              className={styles.button}
+            <Atom.Button
+              variant="primary"
               onClick={() => toggleEdit('description')}
+              type="button"
             >
               Update
-            </button>
+            </Atom.Button>
           </div>
         ) : (
           <div>
             <p>{description || 'Add your description.'}</p>
-            <button
-              className={styles.button}
+            <Atom.Button
+              variant="primary"
               onClick={() => toggleEdit('description')}
+              type="button"
             >
               Edit Description
-            </button>
+            </Atom.Button>
           </div>
         )}
       </div>
@@ -66,12 +69,13 @@ export const ProfileSegmentation: React.FC = () => {
           <div className={styles.edit__container}>
             <input placeholder="Language" />
             <input placeholder="Level" />
-            <button
-              className={styles.add__button || styles.button}
+            <Atom.Button
+              variant="primary"
               onClick={() => toggleEdit('languages')}
+              type="button"
             >
               Add
-            </button>
+            </Atom.Button>
           </div>
         ) : (
           <div>
@@ -80,12 +84,13 @@ export const ProfileSegmentation: React.FC = () => {
                 {language.name} - {language.level}
               </p>
             ))}
-            <button
-              className={styles.button}
+            <Atom.Button
+              variant="primary"
               onClick={() => toggleEdit('languages')}
+              type="button"
             >
               Add New
-            </button>
+            </Atom.Button>
           </div>
         )}
       </div>
@@ -96,22 +101,24 @@ export const ProfileSegmentation: React.FC = () => {
           <div className={styles.edit__container}>
             <input placeholder="Skill" />
             <input placeholder="Experience Level" />
-            <button
-              className={styles.add__button || styles.button}
+            <Atom.Button
+              variant="primary"
               onClick={() => toggleEdit('skills')}
+              type="button"
             >
               Add
-            </button>
+            </Atom.Button>
           </div>
         ) : (
           <div>
             <p>Add your Skills.</p>
-            <button
-              className={styles.button}
+            <Atom.Button
+              variant="primary"
               onClick={() => toggleEdit('skills')}
+              type="button"
             >
               Add New
-            </button>
+            </Atom.Button>
           </div>
         )}
       </div>
@@ -125,22 +132,24 @@ export const ProfileSegmentation: React.FC = () => {
             <input placeholder="Title" />
             <input placeholder="Major" />
             <input placeholder="Year" />
-            <button
-              className={styles.add__button || styles.button}
+            <Atom.Button
+              variant="primary"
               onClick={() => toggleEdit('education')}
+              type="button"
             >
               Add
-            </button>
+            </Atom.Button>
           </div>
         ) : (
           <div>
             <p>Add your Education.</p>
-            <button
-              className={styles.button}
+            <Atom.Button
+              variant="primary"
               onClick={() => toggleEdit('education')}
+              type="button"
             >
               Add New
-            </button>
+            </Atom.Button>
           </div>
         )}
       </div>
@@ -152,22 +161,24 @@ export const ProfileSegmentation: React.FC = () => {
             <input placeholder="Certificate" />
             <input placeholder="Certified From" />
             <input placeholder="Year" />
-            <button
-              className={styles.add__button || styles.button}
+            <Atom.Button
+              variant="primary"
               onClick={() => toggleEdit('certification')}
+              type="button"
             >
               Add
-            </button>
+            </Atom.Button>
           </div>
         ) : (
           <div>
             <p>Add your Certification.</p>
-            <button
-              className={styles.button}
+            <Atom.Button
+              variant="primary"
               onClick={() => toggleEdit('certification')}
+              type="button"
             >
               Add New
-            </button>
+            </Atom.Button>
           </div>
         )}
       </div>

@@ -17,7 +17,7 @@ export const useAuthForm = (
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   const dispatch = useDispatch()
-  const router = useRouter()
+  const { replace } = useRouter()
 
   const isRegistration = authType === 'register'
 
@@ -48,10 +48,22 @@ export const useAuthForm = (
     setSubmissionError('')
 
     try {
-      const data = await authService(authType, formValues)
-      dispatch(login())
-      setIsSubmitted(true)
-      router.push('/dashboard')
+      const data = await authService(authType, {
+        email: formValues.email,
+        password: formValues.password,
+        ...(isRegistration && {
+          fullName: formValues.fullName,
+          confirmPassword: formValues.confirmPassword,
+        }),
+      })
+
+      if (data.token) {
+        dispatch(login({ token: data.token }))
+        setIsSubmitted(true)
+        replace('/dashboard')
+      } else {
+        throw new Error('Токен не был получен')
+      }
     } catch (error) {
       if (error instanceof Error) {
         setSubmissionError(error.message)

@@ -13,11 +13,12 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login: (state) => {
+    login: (state, action) => {
       state.isLoggedIn = true
       if (typeof window !== 'undefined') {
+        const token = action.payload.token
         localStorage.setItem('isLoggedIn', 'true')
-        Cookies.set('token', 'your-token', {
+        Cookies.set('token', token, {
           expires: 60,
           secure: true,
           sameSite: 'strict',

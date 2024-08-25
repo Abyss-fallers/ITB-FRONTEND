@@ -1,3 +1,4 @@
+import Atom from '@/components/atoms'
 import Molecule from '@/components/molecules'
 import styles from '@/styles/profile/Profile.module.css'
 
@@ -10,7 +11,9 @@ const Profile: React.FC<ProfileProps> = ({ name }) => {
     <>
       <article className={styles.profile__container}>
         <Molecule.ProfileHeader name={name} />
-        <button className={styles.preview__button}>Preview ITB Profile</button>
+        <Atom.Button variant="primary" type="button">
+          Preview ITB Profile
+        </Atom.Button>
         <Molecule.ProfileInfoSection />
       </article>
       <article className={styles.profile__container}>

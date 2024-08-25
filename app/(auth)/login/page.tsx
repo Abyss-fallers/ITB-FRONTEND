@@ -1,6 +1,6 @@
 'use client'
 
-import Molecule from '@/components/molecules'
+import Atom from '@/components/atoms'
 import { useAuthForm } from '@/hooks/useAuthForm'
 import { useFormField } from '@/hooks/useFormField'
 import styles from '@/styles/(auth)/Auth.module.css'
@@ -39,7 +39,7 @@ const Login = () => {
         onSubmit={handleFormSubmit}
         autoComplete="on"
       >
-        <Molecule.InputField
+        <Atom.InputField
           id="email"
           label="Email"
           type="email"
@@ -51,7 +51,7 @@ const Login = () => {
           onBlur={emailField.handleBlur}
           autoComplete="email"
         />
-        <Molecule.InputField
+        <Atom.InputField
           id="password"
           label="Пароль"
           type="password"
@@ -65,13 +65,13 @@ const Login = () => {
         {submissionError && (
           <div className={styles.error}>{submissionError}</div>
         )}
-        <button
+        <Atom.Button
+          variant="primary"
           type="submit"
-          className={styles.button}
           disabled={!isFormValid || isSubmitting}
         >
-          {isSubmitting ? <div className={styles.loader}></div> : 'Вход'}
-        </button>
+          Вход
+        </Atom.Button>
       </form>
     </div>
   )

@@ -12,5 +12,9 @@
     "javascriptreact"
   ],
   "prettier.requireConfig": true,
-  "prettier.configPath": ".prettierrc"
+  "prettier.configPath": ".prettierrc",
+  "sonarlint.connectedMode.project": {
+    "connectionId": "768377z",
+    "projectKey": "Abyss-fallers_ITB-FRONTEND"
+  }
 }

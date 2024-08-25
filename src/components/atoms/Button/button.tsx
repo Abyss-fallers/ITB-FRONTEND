@@ -1,10 +1,6 @@
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode
-  size?: 'small' | 'medium' | 'large'
-  variant?: 'primary' | 'secondary' | 'danger'
-  rounded?: boolean
-  iconOnly?: boolean
-}
+import './button.css'
+import { SIZES, VARIANTS } from './constants'
+import { ButtonProps } from './interfaces'
 
 const Button: React.FC<ButtonProps> = ({
   children,
@@ -16,46 +12,16 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   ...props
 }) => {
-  let buttonClasses = 'button'
-
-  switch (size) {
-    case 'small':
-      buttonClasses += ' button--small'
-      break
-    case 'large':
-      buttonClasses += ' button--large'
-      break
-    default:
-      buttonClasses += ' button--medium'
-      break
-  }
-
-  switch (variant) {
-    case 'primary':
-      buttonClasses += ' button--primary'
-      break
-    case 'secondary':
-      buttonClasses += ' button--secondary'
-      break
-    case 'danger':
-      buttonClasses += ' button--danger'
-      break
-    default:
-      buttonClasses += ' button--primary'
-      break
-  }
-
-  if (rounded) {
-    buttonClasses += ' button--rounded'
-  }
-
-  if (iconOnly) {
-    buttonClasses += ' button--icon-only'
-  }
-
-  if (className) {
-    buttonClasses += ` ${className}`
-  }
+  const buttonClasses = [
+    'button',
+    SIZES.includes(size) ? size : undefined,
+    VARIANTS.includes(variant) ? variant : undefined,
+    rounded ? 'rounded' : undefined,
+    variant === 'iconOnly' ? 'icon__only' : undefined,
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   return (
     <button

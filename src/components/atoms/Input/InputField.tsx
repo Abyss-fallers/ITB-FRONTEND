@@ -1,31 +1,23 @@
 import styles from '@/styles/(auth)/Auth.module.css'
+import {
+  DEFAULT_AUTO_COMPLETE,
+  DEFAULT_REQUIRED,
+  DEFAULT_TYPE,
+} from './constants'
+import { InputFieldProps } from './interfaces'
 
-interface InputFieldProps {
-  id: string
-  label: string
-  type?: string
-  placeholder?: string
-  value: string
-  error: string | null
-  touched: boolean
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  onBlur: () => void
-  required?: boolean
-  autoComplete?: string
-}
-
-export const InputField: React.FC<InputFieldProps> = ({
+const InputField: React.FC<InputFieldProps> = ({
   id,
   label,
-  type = 'text',
+  type = DEFAULT_TYPE,
   placeholder,
   value,
   error,
   touched,
   onChange,
   onBlur,
-  required = true,
-  autoComplete = 'off',
+  required = DEFAULT_REQUIRED,
+  autoComplete = DEFAULT_AUTO_COMPLETE,
 }) => (
   <div className={styles.field}>
     <label htmlFor={id}>{label}</label>
@@ -42,3 +34,5 @@ export const InputField: React.FC<InputFieldProps> = ({
     {touched && error && <span className={styles.error}>{error}</span>}
   </div>
 )
+
+export default InputField

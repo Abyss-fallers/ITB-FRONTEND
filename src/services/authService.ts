@@ -23,9 +23,10 @@ export const authService = async (
 
   const data = await response.json()
   Cookies.set('token', data.token, {
-    expires: 7,
+    expires: 90,
     secure: true,
     sameSite: 'strict',
+    httpOnly: true,
   })
 
   return data
