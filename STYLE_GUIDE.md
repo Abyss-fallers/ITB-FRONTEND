@@ -60,7 +60,7 @@
 - **bracketSpacing:** Пробелы внутри фигурных скобок.
 - **endOfLine:** Конец строки в формате LF.
 
-### Prettier
+### EditorConfig
 
 - **Конфигурация:**
 
