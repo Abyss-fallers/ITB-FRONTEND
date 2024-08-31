@@ -1,3 +1,14 @@
+export interface EditSectionProps {
+  label: string
+  items: any[]
+  fieldNames: string[]
+  fieldLabels: string[]
+  stateSetter: React.Dispatch<React.SetStateAction<any[]>>
+  isEditMode: boolean
+  onSave: () => void
+  toggleEdit: () => void
+}
+
 export interface Language {
   name: string
   level: string

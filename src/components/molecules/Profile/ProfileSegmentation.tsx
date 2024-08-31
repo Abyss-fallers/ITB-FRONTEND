@@ -1,11 +1,14 @@
 'use client'
 
 import Atom from '@/components/atoms'
-import { useState } from 'react'
+import React, { useState } from 'react'
+import EditSection from './EditSection'
 import { Certification, Education, Language, Skill } from './interfaces'
 import styles from './ProfileSegmentation.module.css'
 
 export const ProfileSegmentation: React.FC = () => {
+  const currentYear = new Date().getFullYear()
+
   const [isEditing, setIsEditing] = useState({
     description: false,
     languages: false,
@@ -16,172 +19,119 @@ export const ProfileSegmentation: React.FC = () => {
 
   const [description, setDescription] = useState<string>('')
   const [languages, setLanguages] = useState<Language[]>([
-    { name: 'English', level: 'Basic' },
+    { name: '', level: '' },
   ])
-  const [skills, setSkills] = useState<Skill[]>([])
-  const [education, setEducation] = useState<Education[]>([])
-  const [certification, setCertification] = useState<Certification[]>([])
+  const [skills, setSkills] = useState<Skill[]>([{ name: '', experience: '' }])
+  const [education, setEducation] = useState<Education[]>([
+    { country: '', university: '', title: '', major: '', year: currentYear },
+  ])
+  const [certification, setCertification] = useState<Certification[]>([
+    { certificate: '', certifiedFrom: '', year: currentYear },
+  ])
 
   const toggleEdit = (field: keyof typeof isEditing) => {
     setIsEditing((prev) => ({ ...prev, [field]: !prev[field] }))
   }
 
-  const updateDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(e.target.value)
-  }
+  const saveDescription = () => toggleEdit('description')
+  const saveLanguages = () => toggleEdit('languages')
+  const saveSkills = () => toggleEdit('skills')
+  const saveEducation = () => toggleEdit('education')
+  const saveCertification = () => toggleEdit('certification')
 
   return (
     <>
       <div className={styles.container}>
-        <h3>Description</h3>
+        <h3>Описание</h3>
         {isEditing.description ? (
-          <div className={styles.edit__container}>
-            <textarea
-              className={styles.textarea}
+          <form
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault()
+                saveDescription()
+              }
+            }}
+            onSubmit={(e) => e.preventDefault()}
+            className={styles.edit__container}
+          >
+            <Atom.InputField
+              id="description"
+              label="Описание"
+              placeholder="Введите описание"
               value={description}
-              onChange={updateDescription}
+              onChange={(e) => setDescription(e.target.value)}
+              onBlur={() => {}}
+              error={null}
+              touched={false}
             />
             <Atom.Button
               variant="primary"
+              onClick={saveDescription}
+              type="submit"
+            >
+              Сохранить
+            </Atom.Button>
+          </form>
+        ) : (
+          <div>
+            <p>{description || 'Добавьте ваше описание.'}</p>
+            <Atom.Button
+              variant="primary"
               onClick={() => toggleEdit('description')}
               type="button"
             >
-              Update
-            </Atom.Button>
-          </div>
-        ) : (
-          <div>
-            <p>{description || 'Add your description.'}</p>
-            <Atom.Button
-              variant="primary"
-              onClick={() => toggleEdit('description')}
-              type="button"
-            >
-              Edit Description
+              {description ? 'Редактировать описание' : 'Добавить описание'}
             </Atom.Button>
           </div>
         )}
       </div>
 
-      <div className={styles.container}>
-        <h3>Languages</h3>
-        {isEditing.languages ? (
-          <div className={styles.edit__container}>
-            <input placeholder="Language" />
-            <input placeholder="Level" />
-            <Atom.Button
-              variant="primary"
-              onClick={() => toggleEdit('languages')}
-              type="button"
-            >
-              Add
-            </Atom.Button>
-          </div>
-        ) : (
-          <div>
-            {languages.map((language, index) => (
-              <p key={index}>
-                {language.name} - {language.level}
-              </p>
-            ))}
-            <Atom.Button
-              variant="primary"
-              onClick={() => toggleEdit('languages')}
-              type="button"
-            >
-              Add New
-            </Atom.Button>
-          </div>
-        )}
-      </div>
-
-      <div className={styles.container}>
-        <h3>Skills</h3>
-        {isEditing.skills ? (
-          <div className={styles.edit__container}>
-            <input placeholder="Skill" />
-            <input placeholder="Experience Level" />
-            <Atom.Button
-              variant="primary"
-              onClick={() => toggleEdit('skills')}
-              type="button"
-            >
-              Add
-            </Atom.Button>
-          </div>
-        ) : (
-          <div>
-            <p>Add your Skills.</p>
-            <Atom.Button
-              variant="primary"
-              onClick={() => toggleEdit('skills')}
-              type="button"
-            >
-              Add New
-            </Atom.Button>
-          </div>
-        )}
-      </div>
-
-      <div className={styles.container}>
-        <h3>Education</h3>
-        {isEditing.education ? (
-          <div className={styles.edit__container}>
-            <input placeholder="Country" />
-            <input placeholder="University" />
-            <input placeholder="Title" />
-            <input placeholder="Major" />
-            <input placeholder="Year" />
-            <Atom.Button
-              variant="primary"
-              onClick={() => toggleEdit('education')}
-              type="button"
-            >
-              Add
-            </Atom.Button>
-          </div>
-        ) : (
-          <div>
-            <p>Add your Education.</p>
-            <Atom.Button
-              variant="primary"
-              onClick={() => toggleEdit('education')}
-              type="button"
-            >
-              Add New
-            </Atom.Button>
-          </div>
-        )}
-      </div>
-
-      <div className={styles.container}>
-        <h3>Certification</h3>
-        {isEditing.certification ? (
-          <div className={styles.edit__container}>
-            <input placeholder="Certificate" />
-            <input placeholder="Certified From" />
-            <input placeholder="Year" />
-            <Atom.Button
-              variant="primary"
-              onClick={() => toggleEdit('certification')}
-              type="button"
-            >
-              Add
-            </Atom.Button>
-          </div>
-        ) : (
-          <div>
-            <p>Add your Certification.</p>
-            <Atom.Button
-              variant="primary"
-              onClick={() => toggleEdit('certification')}
-              type="button"
-            >
-              Add New
-            </Atom.Button>
-          </div>
-        )}
-      </div>
+      <EditSection
+        label="Языки"
+        items={languages}
+        fieldNames={['name', 'level']}
+        fieldLabels={['Язык', 'Уровень']}
+        stateSetter={setLanguages}
+        isEditMode={isEditing.languages}
+        onSave={saveLanguages}
+        toggleEdit={() => toggleEdit('languages')}
+      />
+      <EditSection
+        label="Навыки"
+        items={skills}
+        fieldNames={['name', 'experience']}
+        fieldLabels={['Навык', 'Уровень опыта']}
+        stateSetter={setSkills}
+        isEditMode={isEditing.skills}
+        onSave={saveSkills}
+        toggleEdit={() => toggleEdit('skills')}
+      />
+      <EditSection
+        label="Образование"
+        items={education}
+        fieldNames={['country', 'university', 'title', 'major', 'year']}
+        fieldLabels={[
+          'Страна',
+          'Университет',
+          'Название',
+          'Специальность',
+          'Год',
+        ]}
+        stateSetter={setEducation}
+        isEditMode={isEditing.education}
+        onSave={saveEducation}
+        toggleEdit={() => toggleEdit('education')}
+      />
+      <EditSection
+        label="Сертификаты"
+        items={certification}
+        fieldNames={['certificate', 'certifiedFrom', 'year']}
+        fieldLabels={['Сертификат', 'Выдан', 'Год']}
+        stateSetter={setCertification}
+        isEditMode={isEditing.certification}
+        onSave={saveCertification}
+        toggleEdit={() => toggleEdit('certification')}
+      />
     </>
   )
 }

@@ -11,7 +11,7 @@ export const useFormField = (initialValue: string) => {
     setTouched(true)
   }
 
-  const handleBlur = () => {
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setTouched(true)
   }
 

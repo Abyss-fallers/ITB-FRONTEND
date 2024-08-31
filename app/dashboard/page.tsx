@@ -1,5 +1,5 @@
-const Dashboard = () => {
+const DashboardPage = () => {
   return <h1>Главная страница</h1>
 }
 
-export default Dashboard
+export default DashboardPage

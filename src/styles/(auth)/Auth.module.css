@@ -25,34 +25,8 @@
   gap: 1rem;
 }
 
-.field label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-}
-
-.field input {
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.3s;
-}
-
-.field input:focus {
-  border-color: #2563eb;
-}
-
 .error {
   color: #f87171;
-  font-size: 0.875rem;
-  margin-top: 0.5rem;
-}
-
-.success {
-  color: #34d399;
   font-size: 0.875rem;
   margin-top: 0.5rem;
 }

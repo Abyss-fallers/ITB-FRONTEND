@@ -14,8 +14,8 @@ pkgs.mkShell {
     # Автоматическая установка зависимостей при запуске nix-shell
     if [ ! -d node_modules ]; then
       echo "Installing npm dependencies..."
-      npm install
-    fi 
+      yarn
+    fi
 
     # Автоматический запуск проекта в режиме разработки
     echo "Starting development server..."

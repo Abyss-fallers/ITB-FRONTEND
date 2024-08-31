@@ -12,7 +12,7 @@ const Profile: React.FC<ProfileProps> = ({ name }) => {
       <article className={styles.profile__container}>
         <Molecule.ProfileHeader name={name} />
         <Atom.Button variant="primary" type="button">
-          Preview ITB Profile
+          Просмотреть профиль
         </Atom.Button>
         <Molecule.ProfileInfoSection />
       </article>

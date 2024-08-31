@@ -1,13 +1,19 @@
+import { ChangeEvent, FocusEvent } from 'react'
+
 export interface InputFieldProps {
   id: string
   label: string
-  type?: string
   placeholder?: string
   value: string
-  error: string | null
+  onChange: (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>,
+  ) => void
+  onBlur: (
+    e: FocusEvent<HTMLInputElement> | FocusEvent<HTMLSelectElement>,
+  ) => void
+  error?: string | null
   touched: boolean
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  onBlur: () => void
-  required?: boolean
+  type?: 'text' | 'password' | 'email' | 'select' | 'number'
+  options?: string[]
   autoComplete?: string
 }
