@@ -1,9 +1,7 @@
 import { jwtVerify } from 'jose'
 import { NextRequest, NextResponse } from 'next/server'
 
-const SECRET_KEY = new TextEncoder().encode(
-  process.env.JWT_SECRET || 'default_secret',
-)
+const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET)
 
 const parseCookies = (cookieHeader: string): Record<string, string> => {
   return cookieHeader.split('; ').reduce(
