@@ -1,0 +1,26 @@
+# Удалите директории и файлы, которые не нужны в образе
+node_modules
+/.next/
+/build
+.DS_Store
+.vscode/
+package-lock.json
+test-results/
+.env.development
+.env.production
+next-env.d.ts
+storybook.log
+
+# Локальные файлы
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Скрытые директории
+.git/
+
+# Тесты
+/tests/
+*.spec.js
+*.test.js

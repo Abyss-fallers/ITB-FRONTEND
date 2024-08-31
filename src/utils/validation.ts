@@ -20,10 +20,12 @@ export const validateName = (name: string): string => {
 }
 
 export const validateEmail = (email: string): string => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/
+
   if (!emailRegex.test(email)) {
     return 'Неверный формат почты'
   }
+
   return ''
 }
 
