@@ -19,20 +19,47 @@ export async function middleware(request: NextRequest) {
 
   const cookiesHeader = request.headers.get('cookie') || ''
   const cookies = parseCookies(cookiesHeader)
-  const token = cookies['token']?.trim()
+  const accessToken = cookies['accessToken']?.trim()
+  const refreshToken = cookies['refreshToken']?.trim()
 
-  if (!token) {
-    console.log('Token is missing')
+  if (!accessToken || !refreshToken) {
+    console.log('Tokens are missing')
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
   try {
-    const { payload } = await jwtVerify(token, SECRET_KEY)
+    const { payload } = await jwtVerify(accessToken, SECRET_KEY)
     console.log('Decoded token:', payload)
     return NextResponse.next()
   } catch (err) {
-    console.error('Invalid token:', err)
-    return NextResponse.redirect(new URL('/login', request.url))
+    console.error('Access token invalid or expired:', err)
+
+    // Handle token refresh
+    try {
+      const response = await fetch('http://localhost:4444/auth/refresh', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token: refreshToken }), // Correctly send the refresh token
+      })
+
+      if (response.ok) {
+        const { data } = await response.json()
+        const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+          data
+
+        const responseNext = NextResponse.next()
+        responseNext.cookies.set('accessToken', newAccessToken)
+        responseNext.cookies.set('refreshToken', newRefreshToken)
+        return responseNext
+      } else {
+        throw new Error('Failed to refresh token')
+      }
+    } catch (refreshErr) {
+      console.error('Error refreshing token:', refreshErr)
+      return NextResponse.redirect(new URL('/login', request.url))
+    }
   }
 }
 

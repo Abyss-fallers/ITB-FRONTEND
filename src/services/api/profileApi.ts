@@ -1,12 +1,18 @@
 import { apiClient, handleApiError } from './apiClient'
 
-export const fetchProfileData = async (token: string) => {
+export const fetchProfileData = async (accessToken: string) => {
   try {
-    apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`
-
-    const response = await apiClient.get('/auth/me')
+    console.log('Making request to /auth/me with accessToken')
+    const response = await apiClient.get('/auth/me', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    console.log('Received response from /auth/me:', response.data)
     return response.data
   } catch (error) {
+    console.error('Error fetching profile data:', error)
     handleApiError(error)
+    throw error
   }
 }

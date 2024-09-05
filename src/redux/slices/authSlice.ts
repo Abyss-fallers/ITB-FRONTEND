@@ -16,9 +16,13 @@ const authSlice = createSlice({
     login: (state, action) => {
       state.isLoggedIn = true
       if (typeof window !== 'undefined') {
-        const token = action.payload.token
-        localStorage.setItem('isLoggedIn', 'true')
-        Cookies.set('token', token, {
+        const { accessToken, refreshToken } = action.payload
+        Cookies.set('accessToken', accessToken, {
+          expires: 60,
+          secure: true,
+          sameSite: 'strict',
+        })
+        Cookies.set('refreshToken', refreshToken, {
           expires: 60,
           secure: true,
           sameSite: 'strict',
@@ -28,14 +32,15 @@ const authSlice = createSlice({
     logout: (state) => {
       state.isLoggedIn = false
       if (typeof window !== 'undefined') {
-        localStorage.removeItem('isLoggedIn')
-        Cookies.remove('token')
+        Cookies.remove('accessToken')
+        Cookies.remove('refreshToken')
       }
     },
     initializeAuth: (state) => {
       if (typeof window !== 'undefined') {
-        const loggedIn = localStorage.getItem('isLoggedIn') === 'true'
-        state.isLoggedIn = loggedIn
+        const accessToken = Cookies.get('accessToken')
+        const refreshToken = Cookies.get('refreshToken')
+        state.isLoggedIn = !!accessToken && !!refreshToken
       }
     },
   },

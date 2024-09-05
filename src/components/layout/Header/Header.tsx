@@ -19,21 +19,19 @@ export const Header = () => {
     const checkAuth = async () => {
       if (typeof window === 'undefined') return
 
-      const token = Cookies.get('token')
-      const loggedIn = localStorage.getItem('isLoggedIn') === 'true'
+      const accessToken = Cookies.get('accessToken')
+      const refreshToken = Cookies.get('refreshToken')
 
-      if (!token) {
-        setShowLoginOptions(true)
-      } else if (!loggedIn) {
+      if (accessToken && refreshToken) {
         try {
           await dispatch(initializeAuth())
+          setShowLoginOptions(false)
         } catch (error) {
           console.error('Ошибка инициализации авторизации:', error)
-        } finally {
-          setShowLoginOptions(false)
+          setShowLoginOptions(true)
         }
       } else {
-        setShowLoginOptions(false)
+        setShowLoginOptions(true)
       }
     }
 
@@ -42,10 +40,10 @@ export const Header = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const token = Cookies.get('token')
-      const loggedIn = localStorage.getItem('isLoggedIn') === 'true'
+      const accessToken = Cookies.get('accessToken')
+      const refreshToken = Cookies.get('refreshToken')
 
-      if (token && loggedIn) {
+      if (accessToken && refreshToken) {
         setShowLoginOptions(false)
       } else {
         setShowLoginOptions(true)

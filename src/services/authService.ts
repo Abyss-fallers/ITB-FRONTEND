@@ -10,8 +10,9 @@ export const authService = async (
     const endpoint = authType === 'login' ? '/auth/login' : '/auth/register'
     const response = await apiClient.post(endpoint, values)
 
-    const { token } = response.data
-    setAuthToken(token)
+    const { accessToken, refreshToken } = response.data
+
+    setAuthToken(accessToken, refreshToken)
 
     return response.data
   } catch (error) {

@@ -5,8 +5,10 @@ import { getProfile } from '@/services/profileService'
 import { cookies } from 'next/headers'
 
 const ProfilePage = async () => {
-  const token = cookies().get('token')?.value || ''
-  const name = await getProfile(token)
+  const cookieStore = cookies()
+  const accessToken = cookieStore.get('accessToken')?.value || ''
+
+  const name = await getProfile(accessToken)
 
   return <Profile name={name} />
 }

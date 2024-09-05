@@ -57,15 +57,21 @@ export const useAuthForm = (
         }),
       })
 
-      if (data.token) {
-        dispatch(login({ token: data.token }))
+      if (data.accessToken && data.refreshToken) {
+        dispatch(
+          login({
+            accessToken: data.accessToken,
+            refreshToken: data.refreshToken,
+          }),
+        )
         setIsSubmitted(true)
         replace('/dashboard')
       } else {
-        throw new Error('Токен не был получен')
+        throw new Error('Токены не были получены')
       }
     } catch (error) {
       if (error instanceof Error) {
+        console.error('Submission error:', error.message)
         setSubmissionError(error.message)
       } else {
         setSubmissionError('Неизвестная ошибка.')
