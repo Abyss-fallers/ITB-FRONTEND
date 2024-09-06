@@ -1,7 +1,12 @@
 import { jwtVerify } from 'jose'
 import { NextRequest, NextResponse } from 'next/server'
 
-const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET)
+const ACCESS_TOKEN_SECRET = new TextEncoder().encode(
+  process.env.ACCESS_TOKEN_SECRET,
+)
+const REFRESH_TOKEN_SECRET = new TextEncoder().encode(
+  process.env.REFRESH_TOKEN_SECRET,
+)
 
 const parseCookies = (cookieHeader: string): Record<string, string> => {
   return cookieHeader.split('; ').reduce(
@@ -15,21 +20,18 @@ const parseCookies = (cookieHeader: string): Record<string, string> => {
 }
 
 export async function middleware(request: NextRequest) {
-  console.log('Middleware triggered for:', request.nextUrl.pathname)
-
   const cookiesHeader = request.headers.get('cookie') || ''
   const cookies = parseCookies(cookiesHeader)
   const accessToken = cookies['accessToken']?.trim()
   const refreshToken = cookies['refreshToken']?.trim()
 
   if (!accessToken || !refreshToken) {
-    console.log('Tokens are missing')
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
   try {
-    const { payload } = await jwtVerify(accessToken, SECRET_KEY)
-    console.log('Decoded token:', payload)
+    // Validate access token
+    await jwtVerify(accessToken, ACCESS_TOKEN_SECRET)
     return NextResponse.next()
   } catch (err) {
     console.error('Access token invalid or expired:', err)
@@ -41,7 +43,7 @@ export async function middleware(request: NextRequest) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ token: refreshToken }), // Correctly send the refresh token
+        body: JSON.stringify({ token: refreshToken }),
       })
 
       if (response.ok) {
@@ -51,7 +53,12 @@ export async function middleware(request: NextRequest) {
 
         const responseNext = NextResponse.next()
         responseNext.cookies.set('accessToken', newAccessToken)
-        responseNext.cookies.set('refreshToken', newRefreshToken)
+
+        // Обновление refreshToken в cookies, если сервер его предоставляет
+        if (newRefreshToken) {
+          responseNext.cookies.set('refreshToken', newRefreshToken)
+        }
+
         return responseNext
       } else {
         throw new Error('Failed to refresh token')

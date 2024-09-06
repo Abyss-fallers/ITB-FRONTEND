@@ -11,10 +11,8 @@ const handleTokenRefresh = async (
   fetchData: (token: string) => Promise<ProfileData>,
 ): Promise<string> => {
   try {
-    console.log('Access token expired, attempting to refresh...')
     const newAccessToken = await refreshToken()
     const data = await fetchData(newAccessToken)
-    console.log('Profile data received after refreshing token:', data)
     return data.fullName || ''
   } catch (refreshError) {
     if (axios.isAxiosError(refreshError)) {
@@ -32,9 +30,7 @@ const handleTokenRefresh = async (
 
 export const getProfile = async (accessToken: string): Promise<string> => {
   try {
-    console.log('Fetching profile data with accessToken:', accessToken)
     const data: ProfileData = await fetchProfileData(accessToken)
-    console.log('Profile data received:', data)
     return data.fullName || ''
   } catch (error) {
     if (axios.isAxiosError(error)) {
